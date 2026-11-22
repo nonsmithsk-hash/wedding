@@ -97,7 +97,7 @@ export const weddingData: WeddingData = {
       title: 'संगीत एवं स्नेह मिलन',
       hindiTitle: 'Musical Evening',
       subtitle: 'पारिवारिक उल्लास, गीतों की मधुर धुन और खुशियों से सजी एक अविस्मरणीय शाम।',
-      date: '27 नवंबर 2026',
+      date: '28 नवंबर 2026',
       time: 'सायं काल (Evening)',
       venue: 'रंगारंग प्रस्तुतियां एवं प्रीतिभोज',
       location: 'निज निवास प्रांगण',

@@ -75,7 +75,7 @@ export default function CeremonySections() {
           event.id === 'tilak'
             ? '20261128/20261129'
             : event.id === 'sangeet'
-            ? '20261127T180000/20261127T230000'
+            ? '20261128T180000/20261128T230000'
             : event.id === 'wedding'
             ? '20261209T170000/20261210T040000'
             : undefined;

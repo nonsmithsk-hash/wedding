@@ -230,7 +230,7 @@ export default function SlideScenePage({
 
             <div className="mt-8 p-6 rounded-2xl bg-white/10 border border-amber-400/25 w-full shadow-inner">
               <p className="font-hindi text-2xl text-[#D4AF37] tracking-wider font-bold">
-                27 नवंबर 2026 • सायं काल (Evening)
+                28 नवंबर 2026 • सायं काल (Evening)
               </p>
               <p className="font-hindi text-xl text-[#C5A059] mt-1.5">
                 रंगारंग प्रस्तुतियां एवं प्रीतिभोज
