@@ -29,6 +29,33 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+              [data-netlify-badge],
+              #netlify-badge,
+              .netlify-badge,
+              iframe[src*="netlify"],
+              div[data-netlify-deployed-by],
+              div[id*="netlify"],
+              [id*="netlify-hud"],
+              [class*="netlify"],
+              [class*="Netlify"],
+              netlify-feedback-button,
+              #netlify-feedback-button {
+                display: none !important;
+                visibility: hidden !important;
+                opacity: 0 !important;
+                pointer-events: none !important;
+                position: absolute !important;
+                top: -9999px !important;
+                left: -9999px !important;
+                height: 0 !important;
+                width: 0 !important;
+              }
+            `,
+          }}
+        />
       </head>
       <body className="bg-[#100b08] text-[#2b1d14] min-h-screen selection:bg-amber-200 selection:text-amber-900 antialiased overflow-x-hidden">
         {children}
