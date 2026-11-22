@@ -73,7 +73,7 @@ export default function CeremonySections() {
 
         const gcalDates =
           event.id === 'tilak'
-            ? '20261127/20261128'
+            ? '20261128/20261129'
             : event.id === 'sangeet'
             ? '20261127T180000/20261127T230000'
             : event.id === 'wedding'
