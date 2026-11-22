@@ -107,3 +107,23 @@ html, body {
 .animate-fadeIn {
   animation: fadeIn 0.4s ease-out forwards;
 }
+
+/* Strictly Hide Any Netlify / Third-Party Injected Badge or Overlay */
+[data-netlify-badge],
+#netlify-badge,
+.netlify-badge,
+iframe[src*="netlify"],
+div[data-netlify-deployed-by],
+div[class*="NetlifyBadge"],
+div[class*="netlify"],
+div[id*="netlify-hud"],
+netlify-feedback-button,
+#netlify-feedback-button,
+div:has(> a[href*="netlify.com"]) {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  position: absolute !important;
+  left: -9999px !important;
+}
