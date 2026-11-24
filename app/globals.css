@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Great+Vibes&family=Marcellus&family=Montserrat:wght@300;400;500;600;700&family=Rozha+One&family=Tiro+Devanagari+Hindi:ital@0;1&family=Yatra+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Great+Vibes&family=Marcellus&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600&family=Rozha+One&family=Tiro+Devanagari+Hindi:ital@0;1&family=Yatra+One&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,6 +6,7 @@
 
 :root {
   --font-cinzel: 'Cinzel', serif;
+  --font-playfair: 'Playfair Display', serif;
   --font-great-vibes: 'Great Vibes', cursive;
   --font-marcellus: 'Marcellus', serif;
   --font-montserrat: 'Montserrat', sans-serif;
@@ -18,9 +19,17 @@ html, body {
   padding: 0;
   background-color: #120e0c;
   color: #2b1d14;
-  font-family: var(--font-hindi-body), var(--font-marcellus), serif;
+  font-family: var(--font-hindi-body), var(--font-playfair), var(--font-marcellus), serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+}
+
+.font-playfair {
+  font-family: 'Playfair Display', serif;
+}
+
+.font-montserrat {
+  font-family: 'Montserrat', sans-serif;
 }
 
 .font-hindi-royal {
@@ -46,13 +55,57 @@ html, body {
   background: #dfbc77;
 }
 
-/* 3D Perspective container for doors */
+/* 3D Perspective container for doors and books */
 .perspective-1000 {
   perspective: 1200px;
 }
 
+.perspective-1200 {
+  perspective: 1200px;
+}
+
+.perspective-1600 {
+  perspective: 1600px;
+}
+
 .transform-style-3d {
   transform-style: preserve-3d;
+}
+
+.rotate-y-0 {
+  transform: rotateY(0deg);
+}
+
+.rotate-y-\[-135deg\] {
+  transform: rotateY(-135deg);
+}
+
+.rotate-y-\[-140deg\] {
+  transform: rotateY(-140deg);
+}
+
+/* Hand swipe animation */
+@keyframes swipeHint {
+  0%, 100% {
+    transform: translateX(0);
+    opacity: 0.8;
+  }
+  25% {
+    transform: translateX(-12px);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(0);
+    opacity: 0.8;
+  }
+  75% {
+    transform: translateX(12px);
+    opacity: 1;
+  }
+}
+
+.animate-swipe-hint {
+  animation: swipeHint 2.2s ease-in-out infinite;
 }
 
 /* Gold Shimmer Text */
@@ -106,6 +159,106 @@ html, body {
 
 .animate-fadeIn {
   animation: fadeIn 0.4s ease-out forwards;
+}
+
+/* Text Soft Blur-in Animation (From user guide prompt: "Text appears with a soft blur-in") */
+@keyframes blurIn {
+  0% {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(14px);
+  }
+  60% {
+    opacity: 0.9;
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateY(0);
+  }
+}
+
+.animate-blur-in {
+  animation: blurIn 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-blur-in-fast {
+  animation: blurIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-blur-in-delayed {
+  animation: blurIn 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+
+.animate-blur-in-delayed-2 {
+  animation: blurIn 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+}
+
+/* 3D Card Flip Perspective & Animations */
+.card-flip-stage {
+  perspective: 1400px;
+  transform-style: preserve-3d;
+}
+
+@keyframes flipOutNext {
+  0% {
+    transform: perspective(1400px) rotateY(0deg) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: perspective(1400px) rotateY(-90deg) scale(0.92);
+    opacity: 0.3;
+  }
+}
+
+@keyframes flipInNext {
+  0% {
+    transform: perspective(1400px) rotateY(90deg) scale(0.92);
+    opacity: 0.3;
+  }
+  100% {
+    transform: perspective(1400px) rotateY(0deg) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes flipOutPrev {
+  0% {
+    transform: perspective(1400px) rotateY(0deg) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: perspective(1400px) rotateY(90deg) scale(0.92);
+    opacity: 0.3;
+  }
+}
+
+@keyframes flipInPrev {
+  0% {
+    transform: perspective(1400px) rotateY(-90deg) scale(0.92);
+    opacity: 0.3;
+  }
+  100% {
+    transform: perspective(1400px) rotateY(0deg) scale(1);
+    opacity: 1;
+  }
+}
+
+.card-flipping-out-next {
+  animation: flipOutNext 0.24s cubic-bezier(0.4, 0, 0.7, 1) forwards;
+}
+
+.card-flipping-in-next {
+  animation: flipInNext 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.card-flipping-out-prev {
+  animation: flipOutPrev 0.24s cubic-bezier(0.4, 0, 0.7, 1) forwards;
+}
+
+.card-flipping-in-prev {
+  animation: flipInPrev 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* Strictly Hide Any Netlify / Third-Party Injected Badge or Overlay */

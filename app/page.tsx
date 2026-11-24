@@ -1,138 +1,150 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
-import { Sparkles } from 'lucide-react';
 import AudioPlayer from '@/components/AudioPlayer';
-import PeacockTerraceHero from '@/components/PeacockTerraceHero';
-import CeremonySections from '@/components/CeremonySections';
-import { weddingData } from '@/data/weddingData';
+import RosePetals from '@/components/RosePetals';
+import BookCoverIntro from '@/components/BookCoverIntro';
+import NamesRevealHero from '@/components/NamesRevealHero';
+import RoyalScrollReveal from '@/components/RoyalScrollReveal';
+import CountdownTimer from '@/components/CountdownTimer';
+import WeddingFestivitiesCarousel from '@/components/WeddingFestivitiesCarousel';
+import OurStoryCarousel from '@/components/OurStoryCarousel';
+import ReceptionCard from '@/components/ReceptionCard';
+import HowToReach from '@/components/HowToReach';
+import { BookOpen, Sparkles } from 'lucide-react';
 
 export default function WeddingInvitationPage() {
+  const [isBookOpen, setIsBookOpen] = useState(false);
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
-  const [isOpening, setIsOpening] = useState(false);
-  const [hasEntered, setHasEntered] = useState(false);
-  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const contentRef = useRef<HTMLDivElement | null>(null);
 
-  const { couple, invocation } = weddingData;
-
-  const handleOpenDoor = () => {
-    if (isOpening || hasEntered) return;
-    setIsOpening(true);
+  const handleOpenBook = () => {
+    setIsBookOpen(true);
     setIsPlayingAudio(true);
+  };
 
-    // Play the door opening animation video forward
-    if (videoRef.current) {
-      videoRef.current.play().catch(() => {});
+  const handleScrollDown = () => {
+    if (contentRef.current) {
+      window.scrollTo({
+        top: window.innerHeight * 0.9,
+        behavior: 'smooth',
+      });
     }
+  };
 
-    // Smoothly transition from the white bloom into Peacock Terrace (Scene 2)
-    setTimeout(() => {
-      setHasEntered(true);
-      window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
-    }, 2800);
+  const handleSwitchToBookView = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setIsBookOpen(false);
   };
 
   return (
-    <main className="relative min-h-screen bg-[#100b08] text-[#2b1d14] overflow-x-hidden selection:bg-amber-200 selection:text-amber-900">
-      {/* Persistent Floating Shehnai Audio Player */}
+    <main className="relative min-h-screen bg-[#100609] text-[#2b1d14] overflow-x-hidden selection:bg-amber-200 selection:text-amber-900">
+      {/* Soft Background Petals */}
+      <div className="fixed inset-0 pointer-events-none z-10">
+        <RosePetals />
+      </div>
+
+      {/* Floating Shehnai Audio Player (Top Right) */}
       <AudioPlayer
         isPlaying={isPlayingAudio}
         onTogglePlay={() => setIsPlayingAudio(!isPlayingAudio)}
       />
 
-      {/* ========================================================
-          FULLSCREEN REALISTIC PALACE DOOR ENTRANCE (Scene 1)
-          ======================================================== */}
-      {!hasEntered && (
-        <div
-          onClick={handleOpenDoor}
-          className={`fixed inset-0 w-full h-full z-40 cursor-pointer overflow-hidden bg-[#100b08] select-none transition-opacity duration-1000 ${
-            isOpening ? 'pointer-events-none' : 'pointer-events-auto'
-          }`}
+      {/* PROMINENT 3D BOOK FORMAT SWITCHER (Visible when inside invitation) */}
+      {isBookOpen && (
+        <button
+          onClick={handleSwitchToBookView}
+          className="fixed top-3 left-3 sm:top-5 sm:left-5 z-40 flex items-center gap-2.5 px-3.5 sm:px-4 py-2 rounded-full bg-gradient-to-r from-[#7A1422] via-[#911627] to-[#540813] border-2 border-[#E5C158] shadow-[0_4px_25px_rgba(212,175,55,0.45)] text-[#F8E7B4] hover:shadow-[0_6px_35px_rgba(212,175,55,0.7)] hover:scale-105 active:scale-95 transition-all duration-300 group backdrop-blur-md"
+          title="Switch to 3D Book View"
         >
-          {/* Palace Door Opening Video */}
-          <video
-            ref={videoRef}
-            src="/video/door_opening_realistic.mp4"
-            poster="/images/royal_palace_doors_hd.jpg"
-            playsInline
-            muted
-            preload="auto"
-            className="w-full h-full object-cover object-center"
-          />
-
-          {/* Ambient Warm Vignette Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/40 pointer-events-none" />
-
-          {/* Top Spiritual Invocation Badge */}
-          <div
-            className={`absolute top-8 sm:top-12 inset-x-0 flex flex-col items-center justify-center z-20 pointer-events-none px-4 transition-all duration-700 ${
-              isOpening ? 'opacity-0 -translate-y-8' : 'opacity-100 translate-y-0'
-            }`}
-          >
-            <div className="bg-black/75 backdrop-blur-md px-6 sm:px-8 py-2.5 sm:py-3 rounded-full border border-amber-400/50 shadow-2xl flex flex-col items-center">
-              <p className="font-hindi text-xs sm:text-sm text-[#F8E7B4] tracking-[0.25em] text-center font-bold">
-                {invocation.shloka}
-              </p>
-              <p className="font-hindi text-xs sm:text-sm text-amber-300 tracking-wider text-center font-bold mt-0.5">
-                {couple.headline}
-              </p>
-            </div>
+          <span className="text-lg sm:text-xl drop-shadow">📖</span>
+          <div className="flex flex-col text-left">
+            <span className="font-hindi text-xs sm:text-sm font-bold text-[#FFF5D1] leading-tight flex items-center gap-1">
+              3D किताब स्वरूप <span className="font-serif text-[10px] sm:text-xs text-[#E5C158] font-normal tracking-wider">(Book View)</span>
+            </span>
+            <span className="text-[10px] sm:text-[11px] text-[#E2D2B0] font-hindi leading-none hidden xs:inline-block">
+              किताब की तरह पढ़ने के लिए यहाँ दबाएं
+            </span>
           </div>
+          <Sparkles className="w-3.5 h-3.5 text-amber-300 animate-spin shrink-0 ml-0.5" />
+        </button>
+      )}
 
-          {/* Center Call to Action: Royal Door Opening Button */}
-          <div
-            className={`absolute bottom-10 sm:bottom-14 inset-x-0 flex flex-col items-center justify-center z-30 px-4 transition-all duration-700 ${
-              isOpening ? 'opacity-0 scale-90 translate-y-4' : 'opacity-100 scale-100 translate-y-0'
-            }`}
-          >
+      {/* SCREEN 1: 3D BOOK COVER INTRO (Closed Maroon Shubh Vivaah Book) */}
+      <BookCoverIntro isOpen={isBookOpen} onOpen={handleOpenBook} />
+
+      {/* MAIN INVITATION CONTENT (Revealed when book is opened) */}
+      <div
+        ref={contentRef}
+        className={`w-full transition-opacity duration-1000 ${
+          isBookOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        }`}
+      >
+        {/* SCREEN 2: NAMES REVEAL (Arch with Marigold Garland, Ganesh & Families) */}
+        <NamesRevealHero onScrollDown={handleScrollDown} />
+
+        {/* SCREEN 3: PULL TO REVEAL (Interactive Royal Scroll with Tassel) */}
+        <RoyalScrollReveal />
+
+        {/* SCREEN 4: LIVE COUNTDOWN & ADD TO CALENDAR */}
+        <div className="relative w-full py-8 bg-gradient-to-b from-[#140508] to-[#14080B] border-y border-[#D4AF37]/20">
+          <CountdownTimer />
+        </div>
+
+        {/* SCREEN 5: WEDDING FESTIVITIES CAROUSEL (Tilak, Sangeet, Haldi, Shubh Vivah) */}
+        <WeddingFestivitiesCarousel />
+
+        {/* SCREEN 6: OUR STORY & FAMILY BLESSINGS (Bal Aagrah, Chacha Ji, Bhratrivrind, Yadav Family) */}
+        <OurStoryCarousel />
+
+        {/* SCREEN 7: GRAND RECEPTION & VIVAH FEAST CARD */}
+        <ReceptionCard />
+
+        {/* SCREEN 8: HOW TO REACH & GOOGLE MAPS */}
+        <HowToReach />
+
+        {/* FOOTER BLESSING & ROYAL CREDITS */}
+        <footer className="w-full py-12 px-4 text-center bg-black/95 border-t border-[#D4AF37]/40 text-[#D4AF37]">
+          {/* Couple Blessing */}
+          <p className="font-hindi text-base sm:text-lg font-bold text-[#F8E7B4] tracking-wide drop-shadow">
+            ॥ मांगलिक परिणय उत्सव • राकेश संग पूजा ॥
+          </p>
+          <p className="font-hindi text-xs sm:text-sm text-[#D4AF37]/90 mt-1">
+            ग्राम - पठखौली (शिवली राशिद गंज) एवं ग्राम - नाहूपुर (सोडरी), जिला - आजमगढ़
+          </p>
+          <p className="font-serif text-[11px] sm:text-xs text-[#A67C52] mt-2 uppercase tracking-widest">
+            Blessing the union with love, happiness &amp; lifetime harmony
+          </p>
+
+          {/* Book View Switcher Button in Footer */}
+          <div className="mt-6 flex justify-center">
             <button
-              id="open-door-btn"
-              onClick={handleOpenDoor}
-              className="group relative flex flex-col items-center justify-center gap-1 px-8 sm:px-12 py-3 sm:py-4 rounded-full bg-gradient-to-r from-[#997428] via-[#E2B744] to-[#997428] border-2 border-[#FFF0C2] shadow-[0_0_35px_rgba(212,175,55,0.7),0_0_70px_rgba(212,175,55,0.4)] hover:shadow-[0_0_55px_rgba(212,175,55,0.95)] hover:scale-105 active:scale-95 transition-all duration-300 pointer-events-auto cursor-pointer"
+              onClick={handleSwitchToBookView}
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-gradient-to-r from-[#590B16] via-[#7A1422] to-[#590B16] border border-[#D4AF37]/70 text-[#F8E7B4] text-xs font-hindi font-bold hover:scale-105 active:scale-95 transition-all shadow-md"
             >
-              {/* Outer Pulsating Golden Aura */}
-              <span className="absolute -inset-1 rounded-full bg-amber-400/40 blur-md group-hover:bg-amber-400/60 animate-pulse pointer-events-none" />
-
-              {/* Button Main Text */}
-              <div className="relative z-10 flex items-center gap-2.5 sm:gap-3 text-[#2a1708]">
-                <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-amber-950 animate-spin" />
-                <span className="font-serif text-sm sm:text-base font-bold tracking-wider drop-shadow-sm uppercase">
-                  Open Royal Invitation • द्वार खोलें
-                </span>
-                <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-amber-950 animate-spin" />
-              </div>
-
-              {/* Subtitle / Hint */}
-              <span className="relative z-10 text-[10px] sm:text-xs font-serif text-amber-950/85 font-semibold tracking-wide">
-                (Tap to Open with Music • शहनाई वादन के साथ)
-              </span>
+              <BookOpen className="w-3.5 h-3.5 text-amber-300" />
+              <span>पुनः 3D किताब स्वरूप में देखें (Open 3D Book View)</span>
             </button>
           </div>
 
-          {/* Divine White Light Bloom on Door Open */}
-          <div
-            className={`fixed inset-0 pointer-events-none z-50 bg-white transition-opacity duration-1000 ease-in-out ${
-              isOpening ? 'opacity-100' : 'opacity-0'
-            }`}
-            style={{
-              background:
-                'radial-gradient(circle at center, #ffffff 0%, #fffef7 60%, #fff8e7 100%)',
-            }}
-          />
-        </div>
-      )}
-
-      {/* ========================================================
-          FULL CEREMONIES STORY (Scenes 2 - 7)
-          Seamless single-page scroll with persistent music
-          ======================================================== */}
-      <div className="w-full flex flex-col items-center">
-        {/* Scene 2: Peacock Terrace Hero (Couple Announcement) */}
-        <PeacockTerraceHero />
-
-        {/* Scenes 3 - 7: Tilak, Sangeet, Haldi, Wedding, Family & Regards */}
-        <CeremonySections />
+          {/* DESIGNED & CRAFTED BY SADESH (ENGLISH & HINDI) */}
+          <div className="mt-8 pt-6 border-t border-[#D4AF37]/25 flex flex-col items-center justify-center space-y-2">
+            <div className="inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-1 px-5 py-2 rounded-full bg-gradient-to-r from-amber-500/10 via-amber-400/20 to-amber-500/10 border border-[#D4AF37]/60 shadow-[0_0_20px_rgba(212,175,55,0.2)]">
+              <Sparkles className="w-3.5 h-3.5 text-[#E5C158] shrink-0" />
+              <span className="font-hindi text-xs sm:text-sm font-bold text-[#F8E7B4] tracking-wide">
+                अभिकल्पना एवं सृजन: <span className="text-[#FFE599] font-black underline decoration-[#D4AF37]/60 underline-offset-2">सदेश</span>
+              </span>
+              <span className="text-[#D4AF37]/50 hidden sm:inline">•</span>
+              <span className="font-serif text-xs sm:text-sm font-semibold text-[#F8E7B4] tracking-wider">
+                Designed &amp; Crafted by: <span className="text-[#FFE599] font-bold underline decoration-[#D4AF37]/60 underline-offset-2">Sadesh</span>
+              </span>
+              <Sparkles className="w-3.5 h-3.5 text-[#E5C158] shrink-0" />
+            </div>
+            <p className="text-[10px] text-[#A67C52] font-serif tracking-wider uppercase">
+              Azamgarh, Uttar Pradesh
+            </p>
+          </div>
+        </footer>
       </div>
     </main>
   );
